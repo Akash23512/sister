@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Sister</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --silver: #bdc3c7;
+            --white: #f8f8f8;
+            --bg: #050507;
+            --heart-violet: #7d5fff; /* Softer, soulful violet for a sister */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 1px solid rgba(125, 95, 255, 0.1);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; filter: blur(0.5px); }
+
+        .container { z-index: 5; width: 80%; max-width: 800px; text-align: center; }
+
+        .section {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -45%);
+            width: 100%;
+            opacity: 0;
+            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 3s ease-out;
+            pointer-events: none;
+            background: transparent;
+        }
+
+        .section.active { opacity: 1; transform: translate(-50%, -50%); pointer-events: auto; }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--white);
+        }
+
+        span.accent {
+            display: block;
+            margin-top: 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--silver);
+            opacity: 0.7;
+        }
+
+        .heart-wrapper {
+            margin-top: 40px;
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            transform: scale(0.8);
+            transition: all 4s ease-in-out 1s;
+        }
+
+        #s6.active .heart-wrapper { opacity: 1; transform: scale(1); }
+
+        svg { overflow: visible !important; background: transparent; }
+
+        .glow-heart {
+            fill: var(--heart-violet);
+            filter: drop-shadow(0 0 15px rgba(125, 95, 255, 0.8));
+            animation: pulseGlow 3.5s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                transform: scale(1); 
+                filter: drop-shadow(0 0 15px rgba(125, 95, 255, 0.9)); 
+            }
+            50% { 
+                transform: scale(1.15); 
+                filter: drop-shadow(0 0 45px rgba(125, 95, 255, 0.6)); 
+            }
+        }
+
+        .footer-hint {
+            position: fixed;
+            bottom: 50px; width: 100%;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--silver);
+            opacity: 0.4;
+            z-index: 10;
+        }
+
+        .trail {
+            position: absolute;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(125, 95, 255, 0.4));
+            height: 1px; z-index: 2; pointer-events: none;
+        }
+    </style>
+</head>
+<body onclick="navigate()">
+
+    <canvas id="stars"></canvas>
+
+    <div class="container">
+        <div class="section active" id="s1">
+            <h1>As long as I’m alive,<br>you’ll always be deeply loved, sister.</h1>
+            <span class="accent">Family First</span>
+        </div>
+
+        <div class="section" id="s2">
+            <h1>I don’t think I’ve ever cared for anyone<br>the way I care for you.</h1>
+            <span class="accent">Soul Bond</span>
+        </div>
+
+        <div class="section" id="s3">
+            <h1>You hold such a special place in my heart<br>that your happiness affects mine too.</h1>
+            <span class="accent">Reflection</span>
+        </div>
+
+        <div class="section" id="s4">
+            <h1>When you’re sad, I feel it.<br>When you smile, everything feels lighter.</h1>
+            <span class="accent">Synchrony</span>
+        </div>
+
+        <div class="section" id="s5">
+            <h1>You are one of the most beautiful<br>parts of my life.</h1>
+            <span class="accent">Gratitude</span>
+        </div>
+
+        <div class="section" id="s6">
+            <h1>No matter what happens, I’ll always be there,<br>loving you quietly, honestly, and completely.</h1>
+            <div class="heart-wrapper">
+                <svg width="100" height="100" viewBox="0 0 24 24">
+                    <path class="glow-heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <span class="accent">Siblings Forever</span>
+        </div>
+    </div>
+
+    <div class="footer-hint" id="hint">Touch to continue</div>
+
+    <audio id="bgm" loop preload="auto">
+        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let starArray = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            starArray = [];
+            for (let i = 0; i < 150; i++) {
+                starArray.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5,
+                    o: Math.random(),
+                    v: Math.random() * 0.015
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            starArray.forEach(s => {
+                s.o += s.v;
+                if (s.o > 1 || s.o < 0) s.v = -s.v;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(255,255,255,${s.o})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.onload = () => { init(); animate(); };
+        window.onresize = init;
+
+        let current = 1;
+        const total = 6;
+
+        function navigate() {
+            const music = document.getElementById('bgm');
+            if(current === 1) music.play().catch(e => {});
+
+            if (current < total) {
+                document.getElementById(`s${current}`).classList.remove('active');
+                current++;
+                document.getElementById(`s${current}`).classList.add('active');
+                if(current === total) document.getElementById('hint').style.opacity = '0';
+                createShootingStar();
+            }
+        }
+
+        function createShootingStar() {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * (window.innerHeight / 2);
+            trail.style.left = startX + 'px';
+            trail.style.top = startY + 'px';
+            trail.style.width = '0px';
+            trail.style.transform = 'rotate(-35deg)';
+            document.body.appendChild(trail);
+            setTimeout(() => {
+                trail.style.transition = 'width 1s ease-in, opacity 1s ease-out';
+                trail.style.width = '300px';
+                setTimeout(() => { trail.style.opacity = '0'; setTimeout(() => trail.remove(), 1000); }, 200);
+            }, 10);
+        }
+    </script>
+</body>
+</html>
